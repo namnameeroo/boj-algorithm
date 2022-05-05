@@ -1,0 +1,34 @@
+def solution(nums):
+    answer = 0
+    # n//2
+    # nums 폰켓몬 담김
+    dic = {}
+    for p in nums:
+
+        if p in dic.keys():
+            dic[p] += 1
+        else:
+            dic[p] = 1
+    speci = len(dic.keys())
+    bring = len(nums)//2
+    if speci >= bring:
+        answer = bring
+    elif speci < bring:
+        answer = speci
+
+#         cycle = 1
+        
+#         for k,v in dic.items():
+#             if v > cycle:
+#                 dic[k] -= 1
+#                 need -= 1
+#             if need == 0:
+#                 break
+#         cycle += 1        
+                
+                
+            # print(k,v)
+        
+        
+    
+    return answer
