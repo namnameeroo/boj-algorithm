@@ -10,10 +10,10 @@ def war(yp,yh):
             mp = a
             mh = h
             round = (mh // yp)
-            mh -= round * yp
-            yh -= round * mp
-            if mh<=0:
-                yh += mp 
+            if mh % yp == 0:
+                yh -= mp * (round-1)
+            else:
+                yh -= mp * (round)
             if yh < 1:
                 return False
         else: # 포션방
