@@ -1,0 +1,23 @@
+import sys
+
+def search(time,w):
+    add = 0
+    for t in w:
+        add += (time//t)
+    return add
+
+def solution(n, w):
+    answer = 0
+    time = 0
+    low = 0
+    high = 10**(9+9)
+    while low <= high:
+        time = (low+high) //2
+        print(time, answer)
+        if search(time,w) < n:  # 가장 먼저 창구별로 사람 넣고 시작
+            low = time+1
+        else:
+            high = time-1
+            answer = time
+        
+    return answer
