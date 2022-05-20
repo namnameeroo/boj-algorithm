@@ -1,0 +1,18 @@
+def solution(plst):
+    plst.sort(key= lambda x: len(x))
+    dic = {}
+    for p in plst:
+        dic[p] = 1
+    ans = True
+    for num in dic.keys():
+        temp = ''
+        for n in num:
+            temp += n
+            if temp in dic and temp != num:
+                print('get!', temp)
+                ans = False
+                return ans
+    
+    
+    return ans
+
