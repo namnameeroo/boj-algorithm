@@ -1,0 +1,16 @@
+import heapq as hq
+def solution(article):
+
+    # article = list(map(int, input().split()))
+    answer = 0
+    hq._heapify_max(article) 
+    h = 0
+    for h in range(article[0]):
+        cnt = 0
+        for i in article:
+            if i >= h:
+                cnt+=1
+        if cnt >= h :
+            answer = max(answer, h)
+
+    return answer
