@@ -1,0 +1,44 @@
+import re
+def solution(dart):
+    
+    bonus = ['S','D','T']
+    opt = ['*','#']
+
+    lst = []
+    n = ''
+    for i in range(len(dart)):
+        d = dart[i]
+        if d.isdecimal():
+            print(d)
+            n += d
+        else:
+            if n:
+                lst.append(n)
+                n=''
+            lst.append(d)
+
+    total = []
+
+    for idx in range(1,len(lst)):
+        d = lst[idx]
+        if d in bonus:
+            n = int(lst[idx-1]) ** (bonus.index(d)+1)
+            total.append(n)
+        elif d in opt:
+            if d == '*':
+                if len(total)>=2:
+                    n = total.pop()*2
+                    m = total.pop()*2
+                    total.append(m)
+                    total.append(n)
+                else:
+                    n = total.pop()*2
+                    total.append(n)
+            if d == '#':
+                n = total.pop()*(-1)
+                total.append(n)
+
+
+    return (sum(total))
+
+
