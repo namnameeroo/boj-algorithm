@@ -1,0 +1,31 @@
+# 스택
+
+def solution(board, moves):
+    bucket = []
+    cnt = 0
+    for j in moves:
+        for i in range(len(board)):
+            if board[i][j-1] != 0:
+                bucket.append(board[i][j-1])
+                board[i][j-1] = 0
+                
+                if len(bucket)>1 and bucket[-1]==bucket[-2]:
+                    bucket.pop(-1)
+                    bucket.pop(-1)
+                    cnt +=1
+                
+                break
+
+    '''while True:
+        long = len(bucket)
+        for i in range(1,len(bucket)):
+             if bucket[i-1] == bucket[i]:
+                cnt += 2
+                bucket.pop(i-1)
+                bucket.pop(i-1)
+                break
+        if long == len(bucket) or not bucket:
+            break'''
+
+    print(cnt*2)
+    return cnt*2
