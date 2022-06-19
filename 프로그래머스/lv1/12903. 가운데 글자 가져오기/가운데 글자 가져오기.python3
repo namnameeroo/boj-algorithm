@@ -1,0 +1,6 @@
+def solution(s):
+
+    long = len(s)    
+    middle = long//2
+    answer = s[middle-1:middle+1] if long%2==0 else s[middle]
+    return answer
