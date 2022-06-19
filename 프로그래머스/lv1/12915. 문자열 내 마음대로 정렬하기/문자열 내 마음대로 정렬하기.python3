@@ -1,0 +1,12 @@
+def solution(w, n):
+    answer = []
+    dic = []
+    for word in w:
+        idx = word[n]
+        dic.append((idx, word))
+    print(dic)
+    dic.sort(key = lambda x : (x[0],x[1]))
+    answer = [x[1] for x in dic]
+    print(answer)
+    # answer = ''
+    return answer
