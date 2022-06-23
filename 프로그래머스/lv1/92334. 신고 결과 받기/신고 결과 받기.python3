@@ -1,0 +1,26 @@
+from collections import Counter
+def solution(id_list, report, k):
+    report = set(report)
+    reported = [r.split()[1] for r in report]
+    reported = [x for x,y in Counter(reported).items() if y>= k]
+    print(reported)
+
+    if len(reported) == 0:
+        return [0] * len(id_list)
+
+    dic = {}
+    for x in id_list:
+        dic[x] = 0
+    countReported(dic, report, reported)
+
+    answer = [y for x,y in dic.items()]
+    print(answer)
+    return answer
+
+def countReported(dic, report, reported):
+    for r in report:
+        a,v = r.split()
+        if v in reported:
+            dic[a] += 1
+    print('dic',dic)
+    return dic
