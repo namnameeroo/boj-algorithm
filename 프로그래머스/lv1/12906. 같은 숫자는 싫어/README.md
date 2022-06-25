@@ -1,10 +1,10 @@
 # [level 1] 같은 숫자는 싫어 - 12906 
 
-[문제 링크](https://programmers.co.kr/learn/courses/30/lessons/12906?language=python3) 
+[문제 링크](https://programmers.co.kr/learn/courses/30/lessons/12906?language=java) 
 
 ### 성능 요약
 
-메모리: 32.4 MB, 시간: 63.11 ms
+메모리: 117 MB, 시간: 32.91 ms
 
 ### 구분
 
