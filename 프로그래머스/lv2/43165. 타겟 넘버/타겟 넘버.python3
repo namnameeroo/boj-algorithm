@@ -1,0 +1,19 @@
+def DFS(arr, target, depth):
+    answer = 0
+    if depth == len(arr):
+        # print(arr)
+        if sum(arr) == target:
+            return 1
+        else:
+            return 0
+    else:
+        answer += DFS(arr, target, depth+1)
+        arr[depth] *= -1
+        answer += DFS(arr, target, depth+1)
+        return answer
+        
+    
+def solution(arr, t):
+
+    answer = DFS(arr, t, 0)
+    return answer
