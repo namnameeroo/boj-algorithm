@@ -1,0 +1,18 @@
+def evenJudge(n):
+    cnt = 0
+    for i in range(1,n+1):
+        if n%i == 0:
+            cnt +=1
+    if cnt % 2==0:        
+        return True
+    else:
+        return False
+
+def solution(left, right):
+    tot = 0
+    for i in range(left, right+1):
+        if evenJudge(i):
+            tot += i
+        else:
+            tot -= i
+    return tot
