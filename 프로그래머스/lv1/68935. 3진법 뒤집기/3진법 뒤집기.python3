@@ -1,0 +1,31 @@
+def toThree(num):
+    result = ''
+    tmp = num
+    while num != 0:
+        m = tmp // 3
+        res = tmp % 3
+
+        result += str(res)
+        if m < 3:
+            result += str(m)
+            break
+        tmp = m
+        
+    # result = str(int(result))[::-1]
+    result = result[::-1]
+    print(result)
+    final = turnTo10(result)
+    return final
+
+def turnTo10(word):
+    result = 0
+    word = str(int(word))
+    for idx in range(len(word)):
+        i = int(word[idx])
+        result += i*(3**idx)
+    return result
+    
+def solution(n):
+    answer = 0
+    thr = toThree(n)
+    return thr
