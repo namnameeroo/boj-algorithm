@@ -1,20 +1,21 @@
-def solution(s):
-    answer = len(s)
-    for step in range(1,len(s)//2+1):
-        compressed = ""
-        prev = s[0:step]
+def solution(word):
+    answer = 10**3
+    for unit in range(1, (len(word) // 2 )+ 2):
+        prev_unit = word[0:unit]
         count = 1
-        
-        for i in range(step,len(s),step):
-            if prev == s[i:i+step]:
-                count +=1
+        result = ""
+
+        for i in range(unit, len(word)+1, unit):
+            curr = word[i : i + unit]
+
+            if prev_unit == curr:
+                count += 1
+
             else:
-                compressed += str(count) + prev if count >=2 else prev
-                prev = s[i:i+step]
+                result += str(count) + prev_unit if count > 1 else prev_unit
+                prev_unit = curr
                 count = 1
-        compressed += str(count) + prev if count >= 2 else prev
-        answer = min(answer, len(compressed))
+
+        result += str(count) + prev_unit if count > 1 else prev_unit
+        answer = min(len(result), answer)
     return answer
-            
-            
-              
