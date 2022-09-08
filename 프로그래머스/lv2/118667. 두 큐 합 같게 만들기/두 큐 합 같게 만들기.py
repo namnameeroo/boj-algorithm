@@ -1,22 +1,32 @@
 from collections import deque
 
-def solution(queue1, queue2):
-    qu_1 = deque(queue1)
-    qu_2 = deque(queue2)
-    sum_1 = sum(qu_1)
-    sum_2 = sum(qu_2)
 
-    for i in range(len(queue1) * 3):
-        if sum_1 == sum_2:
-            return i
-        if sum_1 > sum_2:
-            num = qu_1.popleft()
-            qu_2.append(num)
-            sum_1 -= num
-            sum_2 += num
+def solution(queue1, queue2):
+
+    answer = 0
+    mid = sum(queue1) + sum(queue2)
+    if mid % 2 != 0:
+        return -1
+
+    mid //= 2
+    q1 = deque(queue1)
+    q2 = deque(queue2)
+    sum1 = sum(queue1)
+    sum2 = sum(queue2)
+
+    while q1 and q2:
+        if sum1 > mid:
+            tmp = q1.popleft()
+            sum1 -= tmp
+            sum2 += tmp
+
+        elif sum1 < mid:
+            tmp = q2.popleft()
+            q1.append(tmp)
+            sum1 += tmp
+            sum2 -= tmp
         else:
-            num = qu_2.popleft()
-            qu_1.append(num)
-            sum_2 -= num
-            sum_1 += num
+            return answer
+        answer += 1
+
     return -1
