@@ -1,19 +1,11 @@
 # 중복 가능
 # 순서 있음
 # 유한
-from itertools import combinations
+from collections import Counter
 
 def solution(s):
-    s = s.split('},')
-    # s = list(tuple(x.replace('{','').replace('}','').split(',')) for x in s)
-    s =[x.replace('{','').replace('}','') for x in s]
-    s.sort(key=lambda x: len(x))
-    answer = []
-    for i in s:
-        temp = i.split(',')
-        for j in temp:
-            j = int(j)
-            if j not in answer:
-                answer.append(j)
+    s = s.split(',')
+    filtered = [''.join(list(filter(str.isdigit, word))) for word in s ]
+    count =[int(name) for name,v in sorted(Counter(filtered).items(), key=lambda x: x[1], reverse=True)]
 
-    return answer
+    return count
