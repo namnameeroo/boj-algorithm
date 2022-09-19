@@ -4,29 +4,30 @@
 늑대 : 모은 양의 수 <= 늑대 수 일 때, 모든 양 잡아먹음
 조건 : 양 안 먹히게 하면서 최대한 많이 모아서 루트로 돌아오기
 
-=> DFS?
+=> BFS
 
 """
 
-
 def solution(info, edges):
     answer = []
-    visited = [0] * len(info)
-    visited[0] = 1  # 루트는 양
-
-    def DFS(sheep, wolf):
-        if sheep > wolf:
-            answer.append(sheep)
-        else:
+    visited = [0]+[0]*len(edges)
+    visited[0] = 1 # start here
+    
+    def DFS(sheeps, wolves):
+        if sheeps <= wolves:
             return
-        for i in range(len(edges)):  # 노드개수
+        answer.append(sheeps)
+        for i in range(len(edges)):
             parent = edges[i][0]
             child = edges[i][1]
             isWolf = info[child]
-            if visited[parent] and not visited[child]:
-                visited[child] = 1
-                DFS(sheep + (isWolf==0), wolf + isWolf)
-                visited[child] = 0  # 여기 중요하다, 돌고 나오면 다시 복구하는 거인듯.
+            if visited[parent]==1 and visited[child]==0:
+                visited[child]=1
+                DFS(sheeps+(isWolf==0), wolves+isWolf)
+                visited[child]=0
 
-    DFS(1, 0)
+    
+    DFS(1,0)
+
     return max(answer)
+
