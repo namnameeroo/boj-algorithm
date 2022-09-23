@@ -8,17 +8,17 @@ for i in range(n):
 
     if userSay[0] == "push_front":
         q.appendleft(userSay[1])
-    if userSay[0] == "push_back":
+    elif userSay[0] == "push_back":
         q.append(userSay[1])
-    if userSay[0] == "pop_front":
+    elif userSay[0] == "pop_front":
         print(-1 if len(q) == 0 else q.popleft())
-    if userSay[0] == "pop_back":
+    elif userSay[0] == "pop_back":
         print(-1 if len(q) == 0 else q.pop())
-    if userSay[0] == "size":
+    elif userSay[0] == "size":
         print(len(q))
-    if userSay[0] == "empty":
+    elif userSay[0] == "empty":
         print(1 if len(q) == 0 else 0)
-    if userSay[0] == "front":
+    elif userSay[0] == "front":
         print(-1 if len(q) == 0 else q[0])
-    if userSay[0] == "back":
+    elif userSay[0] == "back":
         print(-1 if len(q) == 0 else q[-1])
