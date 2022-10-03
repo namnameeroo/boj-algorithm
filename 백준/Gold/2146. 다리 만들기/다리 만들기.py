@@ -1,76 +1,85 @@
 import sys
 from collections import deque
-
 input = sys.stdin.readline
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+N = int(input())
+island = [list(map(int, input().split())) for _ in range(N)]
+
+SEA = 0
+EARTH = 1
+
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
+
+q = deque()
+q.append((0, 0))
+
+visited = [[False] * N for _ in range(N)]
 
 
-# 섬을 구분해주는 bfs
-def bfs1(i, j):
-    global count
+def drawSector(start, sector):
     q = deque()
-    q.append([i, j])
-    vis[i][j] = True
-    arr[i][j] = count
-
+    q.append(start)
     while q:
         x, y = q.popleft()
-        for k in range(4):
-            nx = x + dx[k]
-            ny = y + dy[k]
-            if 0 <= nx < n and 0 <= ny < n and arr[nx][ny] == 1 and not vis[nx][ny]:
-                vis[nx][ny] = True
-                arr[nx][ny] = count
-                q.append([nx, ny])
+        visited[x][y] = True
+        island[x][y] = sector
+        for move in range(4):
+            nx, ny = x + dx[move], y + dy[move]
+            if 0 <= nx < N and 0 <= ny < N and island[nx][ny] == EARTH and not visited[nx][ny]:
+                visited[nx][ny] = True
+                island[nx][ny] = sector
+                q.append((nx, ny))
 
-# 바다를 건너며 가장 짧은 거리를 구한다.
-def bfs2(z):
-    global answer
-    dist = [[-1] * n for _ in range(n)] # 거리가 저장될 배열
-    q = deque()
 
-    for i in range(n):
-        for j in range(n):
-            if arr[i][j] == z:
-                q.append([i, j])
+def makeBridge(sec):
+    global bridge
+    dist = [[-1] * N for _ in range(N)]
+    adventure = deque()
+
+    for i in range(N):
+        for j in range(N):
+            if island[i][j] == sec:
+                adventure.append([i, j])
                 dist[i][j] = 0
 
-    while q:
-        x, y = q.popleft()
+    while adventure:
+        x, y = adventure.popleft()
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            # 갈 수 없는 곳이면 continue
-            if nx < 0 or nx >= n or ny < 0 or ny >= n:
-                continue
-            # 다른 땅을 만나면 기존 답과 비교하여 짧은 거리 선택
-            if arr[nx][ny] > 0 and arr[nx][ny] != z:
-                answer = min(answer, dist[x][y])
-                return
-            # 바다를 만나면 dist를 1씩 늘린다.
-            if arr[nx][ny] == 0 and dist[nx][ny] == -1:
-                dist[nx][ny] = dist[x][y] + 1
-                q.append([nx, ny])
+            nx, ny = x + dx[i], y + dy[i]
+            if 0 <= nx < N and 0 <= ny < N:
+                if island[nx][ny] != 0 and island[nx][ny] != sec:
+                    # 내구역 아닌 땅 만나면
+                    bridge = min(dist[x][y], bridge)
+                    return
+
+                if island[nx][ny] == SEA and dist[nx][ny] == -1:
+                    # 바다 만나면
+
+                    dist[nx][ny] = dist[x][y] + 1
+                    adventure.append([nx, ny])
 
 
-n = int(input())
+sector = 1
+bridge = 10**5
+for x in range(N):
+    for y in range(N):
+        if visited[x][y] == 0 and island[x][y] == EARTH:
+            drawSector((x, y), sector)
+            sector += 1
+            # break  # why 가능?
 
-arr = [list(map(int, input().split())) for _ in range(n)]
-vis = [[False] * n for _ in range(n)]
-count = 1
-answer = sys.maxsize
 
-for i in range(n):
-    for j in range(n):
-        if not vis[i][j] and arr[i][j] == 1:
-            bfs1(i, j)
-            count += 1
+# 한번더 탐색하면서 다리 그려야 하나?
+for sec in range(1, sector):
+    makeBridge(sec)
+print(bridge)
 
-# print(arr)
+# print(q)
+# for p in secChecked:
+#     print(p)
+# print(secChecked)
+# print(q)
 
-for i in range(1, count):
-    bfs2(i)
 
-print(answer)
+# 결과 : 메모리 초과
