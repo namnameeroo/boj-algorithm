@@ -1,38 +1,42 @@
 import sys
-input = sys.stdin.readline
+# input = sys.stdin.readline 
+# => 뒤에서 strip 처리 해줘야해서 안쓰는 게 빠름
+sys.setrecursionlimit(10**5)
 
-size = int(input())
-graph = [list(map(int, input().rstrip())) for _ in range(size)]
+NotHome = 0
+Home = 1
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
 
-apt = []
-dx = [1,-1,0,0]
-dy = [0,0,1,-1]
-def DFS(x,y):
-    global cnt
-    if 0<=x<size and 0<=y<size:
 
-        if graph[x][y] == 1:
-            cnt+=1
-            graph[x][y] = 0
+N = int(input())
+G = [list(int(x) for x in str(input())) for _ in range(N)]
+Visited = [[0] * N for _ in range(N)]
 
-            for i in range(4):
-                nx = dx[i]+x
-                ny = dy[i]+y
-                DFS(nx,ny)
-            return True
-        return False
-    else:
-        return False
+hCnt = 0  # 가구 수
+sep = 0   # 단지 수
+result = []
 
-cnt = 0
+def DFS(x, y):
+    global hCnt
+    hCnt += 1  # 집 검사한 채로 호출된거니까 가구 수 up
+    Visited[x][y] = 1
 
-for i in range(size):
-    for j in range(size):
-        if DFS(i,j) == True:
-            apt.append(cnt)
-            cnt = 0
-print(len(apt))
-apt.sort()
-for a in apt:
-    print(a)
-# print(apt)
+    for go in range(4):
+        nx = x + dx[go]
+        ny = y + dy[go]
+        if 0 <= nx < N and 0 <= ny < N:
+            if Visited[nx][ny] == 0 and G[nx][ny] == Home: # 방문 X, 집이면 DFS
+                DFS(nx, ny)
+
+for i in range(N):
+    for j in range(N):
+        if G[i][j] == Home and Visited[i][j] == 0:
+            DFS(i, j) # 집인 곳에서 시작
+            result.append(hCnt) # 가구 수 추가
+            hCnt = 0  # 가구 수 초기화
+            sep += 1  # 단지 수 up
+print(sep)
+result.sort()
+for l in result:
+    print(l)
