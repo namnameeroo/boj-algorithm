@@ -67,7 +67,7 @@ for x in range(N):
         if visited[x][y] == 0 and island[x][y] == EARTH:
             drawSector((x, y), sector)
             sector += 1
-            # break  # why 가능?
+            break  # why 가능?
 
 
 # 한번더 탐색하면서 다리 그려야 하나?
