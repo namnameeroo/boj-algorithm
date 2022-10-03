@@ -64,22 +64,14 @@ sector = 1
 bridge = 10**5
 for x in range(N):
     for y in range(N):
-        if visited[x][y] == 0 and island[x][y] == EARTH:
+        if (not visited[x][y]) and island[x][y] == EARTH:
             drawSector((x, y), sector)
             sector += 1
             break  # why 가능?
 
 
-# 한번더 탐색하면서 다리 그려야 하나?
+# 한번더 탐색하면서 다리 그리기
 for sec in range(1, sector):
     makeBridge(sec)
 print(bridge)
 
-# print(q)
-# for p in secChecked:
-#     print(p)
-# print(secChecked)
-# print(q)
-
-
-# 결과 : 메모리 초과
