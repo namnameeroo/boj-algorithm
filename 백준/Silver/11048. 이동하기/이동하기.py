@@ -12,13 +12,6 @@ dx = [1, 0, 1]
 dy = [0, 1, 1]
 
 
-def checkRange(x, y):
-    if 0 <= x < n and 0 <= y < m:
-        return True
-    else:
-        return False
-
-
 for i in range(1, n + 1):
     for j in range(1, m + 1):
         ans = 0
