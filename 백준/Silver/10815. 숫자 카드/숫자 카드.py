@@ -1,27 +1,28 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
-card = list(map(int, input().split()))
-m = int(input())
 nums = list(map(int, input().split()))
+m = int(input())
+cards = list(map(int, input().split()))
 
-def binary(mid):
-    return card[mid]
+nums.sort()
 
-card.sort()
-ans = []
-for i in nums:
-    l = 0
-    r = n-1
-    j = 0
-    while l<=r:
-        mid = (l+r)//2
-        v = binary(mid)
-        if v < i:
-            l = mid+1
-        elif v > i:
-            r = mid-1
-        else:
-            j = 1
+def binary(target):
+    s = 0
+    e = n-1
+    result = 0
+    while s <= e:
+        mid = (s + e) // 2
+        if target < nums[mid]:
+            e = mid - 1
+        elif target > nums[mid]:
+            s = mid + 1
+        elif target == nums[mid]:
+            result = 1
             break
-    ans.append(j)
-for a in ans:
-    print(a, end=' ')
+    return result
+
+
+for t in cards:
+    print(binary(t), end=" ")
