@@ -12,11 +12,10 @@ H = 1
 chicks = []
 houses = []
 for i in range(n):
-    line = list(map(int, input().split()))
-    for j in range(n):
-        if line[j] == C:
+    for j, v in enumerate(list(map(int, input().split()))):
+        if v == C:
             chicks.append((i, j))
-        if line[j] == H:
+        if v == H:
             houses.append((i, j))
 
 
