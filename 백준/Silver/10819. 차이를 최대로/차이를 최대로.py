@@ -1,14 +1,18 @@
-# import  sys
-# sys.stdin = open('./input.txt', 'rt')
+from itertools import permutations
+import sys
+
+input=sys.stdin.readline
 
 n = int(input())
 arr = list(map(int, input().split()))
-from itertools import permutations
 
-temp = []
-for p_arr in permutations(arr, len(arr)):
+def cal(a, b):
+    return abs(a - b)
+
+result = 0
+for a in permutations(arr, n):
     tot = 0
-    for i in range(1,len(arr)):
-        tot+=abs(p_arr[i-1]-p_arr[i])
-    temp.append(tot)
-print(max(temp))
+    for i in range(n - 1):
+        tot += cal(a[i], a[i + 1])
+    result = max(tot, result)
+print(result)
