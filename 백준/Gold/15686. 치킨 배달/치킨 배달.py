@@ -9,15 +9,14 @@ def getDistance(house, chick):
 C = 2
 H = 1
 
-g = []
 chicks = []
 houses = []
 for i in range(n):
-    g.append(list(map(int, input().split())))  # g 없어도 될거 같은디..
+    line = list(map(int, input().split()))
     for j in range(n):
-        if g[-1][j] == C:
+        if line[j] == C:
             chicks.append((i, j))
-        if g[-1][j] == H:
+        if line[j] == H:
             houses.append((i, j))
 
 
