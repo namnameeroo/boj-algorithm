@@ -1,28 +1,33 @@
 from itertools import combinations
 import sys
-
 input = sys.stdin.readline
-# sys.stdin = open('input.txt','rt')
+n, m = map(int, input().split())
 
-n,m = list(map(int,input().split()))
-g = [list(map(int,input().split())) for _ in range(n)]
+def getDistance(house, chick):
+    return abs(house[0] - chick[0]) + abs(house[1] - chick[1])
 
+C = 2
+H = 1
+
+g = []
+chicks = []
 houses = []
-chicks =[]
 for i in range(n):
+    g.append(list(map(int, input().split())))  # g 없어도 될거 같은디..
     for j in range(n):
-        if g[i][j]==1:
-            houses.append([i,j])
-        if g[i][j]==2:
-            chicks.append([i,j])
-result = 10**5
-for ch in combinations(chicks, m):
-    temp = 0
+        if g[-1][j] == C:
+            chicks.append((i, j))
+        if g[-1][j] == H:
+            houses.append((i, j))
+
+
+dis = sys.maxsize
+for clist in combinations(chicks, m):
+    tot = 0
     for h in houses:
-        dis = 10**3
-        for j in range(m):
-            
-            dis = min(dis, abs(h[0]-ch[j][0])+abs(h[1]-ch[j][1]))
-        temp += dis
-    result = min(result, temp)
-print(result)
+        near = 2 * n
+        for c in clist:
+            near = min(getDistance(h, c), near)
+        tot += near
+    dis = min(dis, tot)
+print(dis)
