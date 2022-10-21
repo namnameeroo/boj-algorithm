@@ -1,28 +1,38 @@
 import sys
 from collections import deque
-
+input = sys.stdin.readline
 
 n, m = map(int, input().split())
+miro = [[0 for _ in range(m + 1)]]
+miro += [[0] + [int(s) for s in str(input().rstrip())] for _ in range(n)]
+visited = [[0] * (m + 1) for _ in range(n + 1)]
+visited[1][1] = 1
+
+
 # n행 m열
-# (n-1, m-1)
-miro = [list(int(x) for x in str(input())) for _ in range(n)]
+def check(x, y):
+    if 1 <= x <= n and 1 <= y <= m and miro[x][y] == 1 and visited[x][y] == 0:
+        return True
+    else:
+        return False
 
-dx = [1, -1, 0, 0]
-dy = [0, 0, 1, -1]
-q = deque()
-q.append((0, 0))
-visited = [[0] * m for _ in range(n)]
-visited[0][0] = 1
 
-while q:
-    x, y = q.popleft()
+def bfs(x, y):
+    q = deque()
+    q.append((x, y))
+    answer = 0
+    move = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+    while q:
+        x, y = q.popleft()
+        if x == n and y == m:
+            break
+        for dx, dy in move:
+            nx, ny = x + dx, y + dy
+            if check(nx, ny):
+                visited[nx][ny] = visited[x][y] + 1
+                q.append((nx, ny))
+    return visited
 
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
 
-        if 0 <= nx < n and 0 <= ny < m and miro[nx][ny] == 1 and visited[nx][ny] == 0:
-            visited[nx][ny] = visited[x][y] + 1
-
-            q.append((nx, ny))
-print(visited[n - 1][m - 1])
+result = bfs(1, 1)
+print(result[n][m])
