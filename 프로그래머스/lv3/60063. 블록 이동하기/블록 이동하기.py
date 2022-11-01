@@ -14,9 +14,8 @@ def solution(board):
 
         # 아래
         if 0 <= lx + 1 < N and board[lx + 1][ly] == empty and board[rx + 1][ry] == empty:
-            result.append([lx + 1, ly, lx, ly])
+            result.append([lx + 1, ly, lx, ly])  # 왼쪽 아래로 이동
             result.append([rx + 1, ry, rx, ry])  # 오른쪽 아래로 이동
-
         # 위
         if 0 <= lx - 1 < N and board[lx - 1][ly] == empty and board[rx - 1][ry] == empty:
             result.append([lx - 1, ly, lx, ly])  # 왼쪽 위로 이동
@@ -25,12 +24,13 @@ def solution(board):
 
     def moveToRow(tx, ty, bx, by):
         result = []
-        # 왼쪽으로 이동
+        # 왼쪽
         if check(tx, ty - 1) and board[tx][ty - 1] == empty and board[bx][by - 1] == empty:
             result.append([tx, ty - 1, tx, ty])
             result.append([bx, by - 1, bx, by])
+        # 오른쪽
         if check(tx, ty + 1) and board[tx][ty + 1] == empty and board[bx][by + 1] == empty:
-            result.append([bx, by, bx, by + 1])  # 오른쪽으로 이동
+            result.append([bx, by, bx, by + 1])
             result.append([tx, ty, tx, ty + 1])
 
         return result
@@ -46,6 +46,8 @@ def solution(board):
             if (x1 == N - 1 and y1 == N - 1) or (x2 == N - 1 and y2 == N - 1):
                 return cnt
             candi = []
+
+
             # 평행이동
             for dx, dy in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
                 nx1, ny1 = x1 + dx, y1 + dy
@@ -66,7 +68,7 @@ def solution(board):
             for temp in candi:
                 if temp not in hist:
                     q.append((temp, cnt + 1))
-                    hist.append(temp)
+                    hist.append(temp) # set형 썼어도 좋았을 것
 
     cnt = bfs(0, 0, 0, 1)
     return cnt
