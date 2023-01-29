@@ -1,8 +1,4 @@
 def solution(order):
-    result = 0
-    target = [3,6,9]
     order = str(order)
-    for each in order:
-        if int(each) in target:
-            result += 1
+    result = order.count('3') + order.count('6') + order.count('9')
     return result
