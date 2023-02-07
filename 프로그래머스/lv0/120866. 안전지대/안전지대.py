@@ -10,29 +10,23 @@ def solution(board):
             return True
         return False
 
-
-    def bfs(bomb):
+    def adjacent(bomb):
         x, y = bomb
-        visited[x][y] = True
         cnt = 1
         for i in range(8):
             nx, ny = dx[i] + x, dy[i] + y
             if check(nx, ny) and visited[nx][ny] == False and board[nx][ny]==0:
-
                 visited[nx][ny] = True
                 cnt += 1
-
         return cnt
-
 
     result = 0
     for r in range(n):
         for c in range(n):
-            cnt = 0
-            if visited[r][c] == False and board[r][c] == 1:
-                visited[r][c] = True
-                cnt = bfs([r, c])
+            new_danger = 0
+            if board[r][c] == 1:
+                new_danger = adjacent([r, c])
 
-            result += cnt
-    # print(n * n - result)
+            result += new_danger
+
     return n * n - result
