@@ -1,10 +1,6 @@
 def solution(chicken):
-    service = 0
-    while chicken > 0:
-        if chicken >= 10:
-            chicken -= 10
-            service += 1
-            chicken += 1
-        else:
-            chicken = 0
+    service = 0 
+    while chicken > 9:
+        service += chicken // 10
+        chicken = chicken // 10 + chicken % 10
     return service
