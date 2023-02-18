@@ -1,25 +1,11 @@
 def solution(before, after):
-    dic = {}
-    answer = 0
-    for letter in before:
-        if letter in dic.keys():
-            dic[letter] += 1
-        else:
-            dic[letter] = 1
+    before=sorted(before)
+    after=sorted(after)
+    if before==after:
+        return 1
+    else:
+        return 0
 
-    for target in after:
-        if (target in dic.keys()) and (dic[target] > 0):
-            dic[target] -= 1
-        else:
-            return 0
-    
-    return 1
-# from itertools import permutations
+# from collections import Counter
 # def solution(before, after):
-#     answer = 0
-#     for attempt in permutations(before):
-#         attempt = ''.join(attempt)
-#         if attempt == after:
-#             answer = 1
-#             break
-#     return answer
+#     return 1 if Counter(before)==Counter(after) else 0
