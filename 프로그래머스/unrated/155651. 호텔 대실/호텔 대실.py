@@ -1,21 +1,23 @@
 def solution(book_time):
-    answer = 0
-    
-    dp = [0]*3601
     def trans(time):
         h, m = map(int, time.split(':'))
         return h*60 + m
     
-    min_book_time = [[trans(s), trans(e)] for s, e in book_time]
-    min_book_time.sort()
-    for start, end in min_book_time:
+    dp = [0]*3601    
+    min_start = 3601
+    max_end = -1
+    
+    for start, end in book_time:
+        start = trans(start)
+        end = trans(end)
+        min_start = min(min_start, start)
+        max_end = max(max_end, end)
+        
         dp[start] += 1
         dp[end+10] -= 1
 
     rooms = 0
-    first = min_book_time[0][0]
-    
-    for timeAt in range(first,3601):
+    for timeAt in range(min_start,max_end):
         dp[timeAt] += dp[timeAt-1]
         rooms = max(dp[timeAt], rooms)
     
