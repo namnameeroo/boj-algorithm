@@ -17,14 +17,6 @@ function solution(board, moves) {
         }
     }
     
-    // grab
-    // bucket 검사
-    // bubble pop, cnt++;
-    
-    // return cnt
-    
-    
-    
     function hasSame() {
         return bucket.length > 1 && bucket.at(-1) === bucket.at(-2);
     }
@@ -42,10 +34,10 @@ function solution(board, moves) {
                 let item = board[i][position];
                 board[i][position] = 0;
                 bucket.push(item);
-                break;
+                return;
             }
         }
-        return [...bucket];
+        return;
     }
     
     return answer;
